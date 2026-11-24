@@ -1,0 +1,1759 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Autonomous Shift // AI, Agents & Agentic Intelligence</title>
+  <!-- Tailwind CSS via Google GStatic -->
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <!-- Google Fonts: Space Grotesk, Plus Jakarta Sans, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+       :root {
+      /* LIGHT / IVORY LUXE THEME */
+      --bg-base: #fbf9f5;
+      --bg-surface: #ffffff;
+      --bg-surface-elevated: #f4f0e8;
+      --bg-surface-card: rgba(255, 255, 255, 0.85);
+      --border-subtle: #e5ded3;
+      --border-strong: #d4c8b8;
+      --text-primary: #191c21;
+      --text-secondary: #575f6e;
+      --text-muted: #828b9a;
+      
+      --accent-warm: #b45309;       /* Cognac / Amber */
+      --accent-warm-soft: rgba(180, 83, 9, 0.08);
+      --accent-warm-border: rgba(180, 83, 9, 0.25);
+      --accent-emerald: #047857;    /* Deep Forest */
+      --accent-emerald-soft: rgba(4, 120, 87, 0.08);
+      --accent-emerald-border: rgba(4, 120, 87, 0.25);
+      --accent-cyan: #0e7490;
+      --accent-rose: #be123c;
+      
+      --grid-line: rgba(0, 0, 0, 0.04);
+      --water-color: #0284c7;
+      --water-bg: rgba(2, 132, 199, 0.08);
+      --shadow-card: 0 4px 20px -2px rgba(27, 24, 20, 0.06), 0 2px 6px -1px rgba(27, 24, 20, 0.04);
+    }
+
+    html.dark {
+      /* DARK / OBSIDIAN LUXE THEME */
+      --bg-base: #090c12;
+      --bg-surface: #10141f;
+      --bg-surface-elevated: #161c2b;
+      --bg-surface-card: rgba(16, 20, 31, 0.85);
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(255, 255, 255, 0.16);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      
+      --accent-warm: #f59e0b;       /* Luminous Amber */
+      --accent-warm-soft: rgba(245, 158, 11, 0.12);
+      --accent-warm-border: rgba(245, 158, 11, 0.3);
+      --accent-emerald: #10b981;    /* Signal Emerald */
+      --accent-emerald-soft: rgba(16, 185, 129, 0.12);
+      --accent-emerald-border: rgba(16, 185, 129, 0.3);
+      --accent-cyan: #06b6d4;
+      --accent-rose: #f43f5e;
+      
+      --grid-line: rgba(255, 255, 255, 0.035);
+      --water-color: #38bdf8;
+      --water-bg: rgba(56, 189, 248, 0.08);
+      --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.6);
+    }
+
+    body {
+      background-color: var(--bg-base);
+      color: var(--text-primary);
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+    }
+
+    .font-display { font-family: 'Space Grotesk', sans-serif; }
+    .font-mono-code { font-family: 'JetBrains Mono', monospace; }
+
+    /* Architect Grid Background */
+    .bg-grid {
+      background-size: 32px 32px;
+      background-image: 
+        linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+    }
+
+    /* Glass Surface Styling */
+    .glass-surface {
+      background: var(--bg-surface-card);
+      backdrop-filter: blur(14px);
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-card);
+    }
+    .glass-surface:hover {
+      border-color: var(--border-strong);
+    }
+
+    /* Waterline Animated Ripple */
+    .waterline-flow {
+      background: linear-gradient(90deg, var(--accent-warm) 0%, var(--water-color) 50%, var(--accent-emerald) 100%);
+      background-size: 200% 100%;
+      animation: waterWave 8s linear infinite;
+    }
+    @keyframes waterWave {
+      0% { background-position: 0% 0%; }
+      100% { background-position: 200% 0%; }
+    }
+
+    /* Iceberg facet styling and hover transitions */
+    .iceberg-facet {
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+    }
+    .iceberg-facet:hover {
+      filter: drop-shadow(0 0 12px var(--accent-warm));
+      stroke: var(--accent-warm);
+      stroke-width: 2.5;
+    }
+
+    .iceberg-facet.active-layer {
+      stroke: var(--accent-warm);
+      stroke-width: 2.5;
+    }
+
+    /* Subtle pulse animation */
+    @keyframes subtlePulse {
+      0%, 100% { opacity: 0.8; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.02); }
+    }
+    .pulse-subtle {
+      animation: subtlePulse 3s infinite ease-in-out;
+    }
+  </style>
+</head>
+<body class="bg-grid relative selection:bg-amber-500/20 selection:text-amber-500">
+
+  <!-- ======================================================== -->
+  <!-- TOP PERSISTENT NAVBAR -->
+  <!-- ======================================================== -->
+  <header class="sticky top-0 z-50 glass-surface border-b border-[var(--border-subtle)] px-4 lg:px-8 py-3">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      
+      <!-- Brand & Status -->
+      <a href="#" class="flex items-center space-x-3 group">
+        <div class="w-9 h-9 rounded-lg bg-[var(--accent-warm-soft)] border border-[var(--accent-warm-border)] flex items-center justify-center font-display font-bold text-[var(--accent-warm)] text-base group-hover:scale-105 transition-transform">
+          AI
+        </div>
+        <div>
+          <div class="flex items-center space-x-2">
+            <span class="font-display font-bold text-sm tracking-wide text-[var(--text-primary)]">AGENTIC ARCHITECTURE</span>
+            <span class="text-[10px] font-mono-code px-1.5 py-0.5 rounded bg-[var(--accent-emerald-soft)] text-[var(--accent-emerald)] border border-[var(--accent-emerald-border)]">RESEARCH v2.4</span>
+          </div>
+          <p class="text-[11px] text-[var(--text-secondary)] font-mono-code hidden sm:block">From Prediction to Coordinated Action</p>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Anchors -->
+      <nav class="hidden md:flex items-center space-x-6 text-xs font-mono-code text-[var(--text-secondary)]">
+        <a href="#video-brief" class="hover:text-[var(--accent-warm)] text-[var(--accent-warm)] transition-colors flex items-center gap-1 font-semibold">
+          <span class="w-1.5 h-1.5 rounded-full bg-[var(--accent-warm)] animate-ping"></span>
+          00. Video Brief
+        </a>
+        <a href="#taxonomy" class="hover:text-[var(--accent-warm)] transition-colors">01. Taxonomy</a>
+        <a href="#mechanics" class="hover:text-[var(--accent-warm)] transition-colors">02. Mechanics</a>
+        <a href="#iceberg" class="hover:text-[var(--accent-warm)] font-bold text-[var(--accent-warm)] transition-colors flex items-center gap-1">
+          <span class="w-1.5 h-1.5 rounded-full bg-[var(--accent-warm)]"></span>
+          03. The Iceberg
+        </a>
+        <a href="#swarm" class="hover:text-[var(--accent-warm)] transition-colors">04. Swarms</a>
+        <a href="#scenario" class="hover:text-[var(--accent-warm)] transition-colors">05. Case Study</a>
+        <a href="#knowledge" class="hover:text-[var(--accent-warm)] transition-colors">06. Knowledge</a>
+        <a href="#guardrails" class="hover:text-[var(--accent-warm)] transition-colors">07. Guardrails</a>
+      </nav>
+
+      <!-- Right Controls: Audio + Theme Switcher -->
+      <div class="flex items-center space-x-2 sm:space-x-3">
+        
+        <!-- Audio Haptic Sound FX Toggle -->
+        <button id="soundToggleBtn" onclick="toggleSoundFx()" title="Toggle Tactical Micro-Sounds" class="p-2 rounded-lg bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-[var(--accent-warm)] transition-colors">
+          <svg id="soundIconOn" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+          <svg id="soundIconOff" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z m11.414-4.586l4 4m0-4l-4 4"></path></svg>
+        </button>
+
+        <!-- THEME SWITCH TOGGLE (Dark / Light Ivory Luxe) -->
+        <button id="themeToggleBtn" onclick="toggleTheme()" title="Switch Light/Dark Palette" class="px-3 py-1.5 rounded-lg bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] text-xs font-mono-code text-[var(--text-primary)] hover:border-[var(--accent-warm-border)] flex items-center space-x-2 transition-all">
+          <span id="themeIconSun" class="text-amber-500 hidden">&#9728; Light</span>
+          <span id="themeIconMoon" class="text-amber-400">&#9790; Dark</span>
+        </button>
+
+        <!-- Deck Mode Quick Launcher -->
+        <button onclick="toggleDeckModal()" class="px-3 py-1.5 rounded-lg bg-[var(--accent-warm)] text-slate-950 font-bold font-mono-code text-xs hover:opacity-90 transition-opacity flex items-center gap-1.5 shadow-sm">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z"></path></svg>
+          <span class="hidden sm:inline">Deck Mode</span>
+        </button>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- ======================================================== -->
+  <!-- HERO SECTION: THE AUTONOMOUS SHIFT -->
+  <!-- ======================================================== -->
+  <section class="relative pt-12 pb-20 px-4 lg:px-8 border-b border-[var(--border-subtle)] overflow-hidden">
+    <!-- Ambient glow accents (Warm Gold & Forest Emerald, NO generic blue gradient) -->
+    <div class="absolute -top-20 left-1/4 w-96 h-96 bg-[var(--accent-warm)] opacity-10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute top-40 right-10 w-96 h-96 bg-[var(--accent-emerald)] opacity-10 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto space-y-8">
+      
+      <div class="max-w-3xl space-y-4">
+        <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[var(--accent-warm-soft)] border border-[var(--accent-warm-border)] text-[var(--accent-warm)] text-xs font-mono-code">
+          <span class="w-1.5 h-1.5 rounded-full bg-[var(--accent-warm)] animate-pulse"></span>
+          <span>SYSTEM ARCHITECTURE RESEARCH BRIEF // CANONICAL BLUEPRINT</span>
+        </div>
+
+        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-display font-extrabold tracking-tight text-[var(--text-primary)] leading-[1.08]">
+          The Autonomous Shift: <br/>
+          <span class="text-[var(--accent-warm)]">From Answering</span> <br class="hidden sm:block"/>
+          to <span class="text-[var(--accent-emerald)]">Accomplishing.</span>
+        </h1>
+
+        <p class="text-base sm:text-xl text-[var(--text-secondary)] leading-relaxed font-normal pt-2">
+          A definitive structural guide exploring the journey from passive statistical token generation in Large Language Models to goal-directed AI Agents, multi-agent swarms, and governed continual learning.
+        </p>
+      </div>
+
+      <!-- Quick Telemetry Strip -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4">
+        
+        <div class="glass-surface p-4 rounded-xl border-[var(--border-subtle)]">
+          <span class="text-[10px] font-mono-code text-[var(--accent-warm)] uppercase tracking-wider block mb-1">Taxonomy</span>
+          <div class="text-xl font-display font-bold text-[var(--text-primary)]">3 Core Levels</div>
+          <p class="text-xs text-[var(--text-secondary)] mt-1">AI &bull; AI Agent &bull; Agentic AI</p>
+        </div>
+
+        <div class="glass-surface p-4 rounded-xl border-[var(--border-subtle)]">
+          <span class="text-[10px] font-mono-code text-[var(--accent-emerald)] uppercase tracking-wider block mb-1">Capability Spectrum</span>
+          <div class="text-xl font-display font-bold text-[var(--text-primary)]">5 Iceberg Layers</div>
+          <p class="text-xs text-[var(--text-secondary)] mt-1">2 Above Water &bull; 3 Frontier</p>
+        </div>
+
+        <div class="glass-surface p-4 rounded-xl border-[var(--border-subtle)]">
+          <span class="text-[10px] font-mono-code text-[var(--accent-cyan)] uppercase tracking-wider block mb-1">Knowledge Stores</span>
+          <div class="text-xl font-display font-bold text-[var(--text-primary)]">3 Epistemologies</div>
+          <p class="text-xs text-[var(--text-secondary)] mt-1">Weights &bull; Context &bull; Outside (RAG)</p>
+        </div>
+
+        <div class="glass-surface p-4 rounded-xl border-[var(--border-subtle)]">
+          <span class="text-[10px] font-mono-code text-[var(--accent-rose)] uppercase tracking-wider block mb-1">Security Posture</span>
+          <div class="text-xl font-display font-bold text-[var(--text-primary)]">Strict Guardrails</div>
+          <p class="text-xs text-[var(--text-secondary)] mt-1">RBAC &bull; Cost Caps &bull; Human Gates</p>
+        </div>
+
+      </div>
+
+      <div class="flex flex-wrap items-center gap-4 pt-2">
+        <a href="#video-brief" class="px-6 py-3 rounded-lg bg-[var(--accent-warm)] text-slate-950 font-bold font-mono-code text-xs tracking-wider uppercase hover:opacity-95 transition-all shadow-lg flex items-center space-x-2">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          <span>WATCH EXPLANATION VIDEO (1:25)</span>
+        </a>
+        <a href="#iceberg" class="px-5 py-3 rounded-lg glass-surface border-[var(--border-subtle)] hover:border-[var(--accent-warm-border)] text-[var(--text-primary)] font-bold font-mono-code text-xs tracking-wider uppercase transition-all flex items-center space-x-2">
+          <span>THE 5-LAYER ICEBERG</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+        </a>
+        <a href="#swarm" class="px-5 py-3 rounded-lg glass-surface text-[var(--text-primary)] font-mono-code text-xs hover:border-[var(--accent-emerald-border)] transition-colors flex items-center space-x-2">
+          <span>RUN SWARM SIMULATOR</span>
+          <svg class="w-3.5 h-3.5 text-[var(--accent-emerald)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ======================================================== -->
+  <!-- FEATURED VIDEO BRIEFING SECTION (explanation short.mp4) -->
+  <!-- ======================================================== -->
+  <section id="video-brief" class="py-16 px-4 lg:px-8 border-b border-[var(--border-subtle)] max-w-7xl mx-auto">
+    <div class="space-y-8">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div>
+          <div class="flex items-center space-x-2 text-[var(--accent-warm)] text-xs font-mono-code mb-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>EXECUTIVE BRIEFING // 1080P FULL HD &bull; 85s RUNTIME</span>
+          </div>
+          <h2 class="text-3xl sm:text-5xl font-display font-extrabold text-[var(--text-primary)] tracking-tight">
+            The Agentic Shift: Video Breakdown
+          </h2>
+          <p class="text-[var(--text-secondary)] text-sm sm:text-base mt-2 max-w-2xl">
+            Watch the concise multimedia walkthrough synthesizing the paradigm evolution from standalone language model generation to goal-directed agents and coordinated swarms.
+          </p>
+        </div>
+        <div class="flex items-center gap-2 self-start md:self-auto text-xs font-mono-code">
+          <span class="px-2.5 py-1 rounded-md bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] text-[var(--text-secondary)]">
+            H.264 &bull; 1920&times;1080
+          </span>
+          <span class="px-2.5 py-1 rounded-md bg-[var(--accent-emerald-soft)] border border-[var(--accent-emerald-border)] text-[var(--accent-emerald)] font-bold">
+            01:25 TOTAL
+          </span>
+        </div>
+      </div>
+
+      <!-- VIDEO CINEMA CONTAINER -->
+      <div class="glass-surface rounded-3xl p-4 sm:p-6 border-[var(--accent-warm-border)] relative overflow-hidden shadow-2xl">
+        <!-- Ambient Backlight -->
+        <div class="absolute -top-10 left-1/3 w-80 h-80 bg-[var(--accent-warm)] opacity-10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-10 right-1/3 w-80 h-80 bg-[var(--accent-emerald)] opacity-10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="relative rounded-2xl overflow-hidden bg-black/90 border border-[var(--border-subtle)] aspect-video max-h-[620px] mx-auto shadow-inner">
+          <video 
+            id="briefingVideo" 
+            class="w-full h-full object-contain" 
+            controls 
+            preload="metadata" 
+            playsinline
+          >
+            <source src="explanation short.mp4" type="video/mp4">
+            Your browser does not support HTML5 video playback.
+          </video>
+        </div>
+
+        <!-- Video HUD Controller & Chapter Quick Jump -->
+        <div class="mt-6 pt-4 border-t border-[var(--border-subtle)] flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+          
+          <!-- Chapter markers -->
+          <div class="space-y-1.5 w-full lg:w-auto">
+            <span class="text-[10px] font-mono-code text-[var(--text-muted)] uppercase tracking-wider block">Jump to Chapter:</span>
+            <div class="flex flex-wrap gap-2 text-xs font-mono-code">
+              <button onclick="seekVideo(0)" class="px-2.5 py-1 rounded-md bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] hover:border-[var(--accent-warm-border)] text-[var(--text-primary)] transition-all flex items-center gap-1.5">
+                <span class="text-[var(--accent-warm)] font-bold">00:00</span> The Shift
+              </button>
+              <button onclick="seekVideo(22)" class="px-2.5 py-1 rounded-md bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] hover:border-[var(--accent-warm-border)] text-[var(--text-primary)] transition-all flex items-center gap-1.5">
+                <span class="text-[var(--accent-warm)] font-bold">00:22</span> Tool Execution
+              </button>
+              <button onclick="seekVideo(45)" class="px-2.5 py-1 rounded-md bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] hover:border-[var(--accent-warm-border)] text-[var(--text-primary)] transition-all flex items-center gap-1.5">
+                <span class="text-[var(--accent-warm)] font-bold">00:45</span> The Iceberg
+              </button>
+              <button onclick="seekVideo(65)" class="px-2.5 py-1 rounded-md bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] hover:border-[var(--accent-warm-border)] text-[var(--text-primary)] transition-all flex items-center gap-1.5">
+                <span class="text-[var(--accent-warm)] font-bold">01:05</span> Safe Autonomy
+              </button>
+            </div>
+          </div>
+
+          <!-- Playback Speed & Controls -->
+          <div class="flex items-center space-x-2 text-xs font-mono-code self-end lg:self-auto">
+            <span class="text-[var(--text-muted)] text-[10px] uppercase">Speed:</span>
+            <div class="flex bg-[var(--bg-surface-elevated)] p-1 rounded-lg border border-[var(--border-subtle)]">
+              <button onclick="setVideoSpeed(1.0)" id="speedBtn10" class="px-2 py-0.5 rounded font-bold bg-[var(--accent-warm-soft)] text-[var(--accent-warm)]">1x</button>
+              <button onclick="setVideoSpeed(1.25)" id="speedBtn125" class="px-2 py-0.5 rounded text-[var(--text-secondary)] hover:text-[var(--text-primary)]">1.25x</button>
+              <button onclick="setVideoSpeed(1.5)" id="speedBtn15" class="px-2 py-0.5 rounded text-[var(--text-secondary)] hover:text-[var(--text-primary)]">1.5x</button>
+              <button onclick="setVideoSpeed(2.0)" id="speedBtn20" class="px-2 py-0.5 rounded text-[var(--text-secondary)] hover:text-[var(--text-primary)]">2x</button>
+            </div>
+            <button onclick="toggleVideoFullscreen()" title="Fullscreen Video" class="p-2 rounded-lg bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path></svg>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+    </div>
+  </section>
+
+  <!-- ======================================================== -->
+  <!-- SECTION 01: THE THREE LEVELS (BENTO GRID WITH COMPARISON) -->
+  <!-- ======================================================== -->
+  <section id="taxonomy" class="py-20 px-4 lg:px-8 border-b border-[var(--border-subtle)] max-w-7xl mx-auto">
+    <div class="space-y-12">
+      
+      <div>
+        <div class="flex items-center space-x-2 text-[var(--accent-warm)] text-xs font-mono-code mb-2">
+          <span>SECTION 01 // FOUNDATIONAL TAXONOMY</span>
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-display font-extrabold text-[var(--text-primary)] tracking-tight">
+          Three Ideas, Three Different Levels
+        </h2>
+        <p class="text-[var(--text-secondary)] text-sm sm:text-base mt-2 max-w-2xl">
+          They are closely interconnected, but they are not interchangeable terms. Each represents a distinct leap in autonomy and architectural responsibility.
+        </p>
+      </div>
+
+      <!-- Bento Grid Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- CARD 1: ARTIFICIAL INTELLIGENCE -->
+        <div class="glass-surface rounded-2xl p-6 sm:p-8 flex flex-col justify-between group hover:border-[var(--accent-warm-border)] transition-all">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono-code px-2 py-0.5 rounded bg-[var(--bg-surface-elevated)] text-[var(--text-secondary)] border border-[var(--border-subtle)]">LEVEL 01</span>
+              <span class="text-[11px] font-mono-code text-[var(--text-muted)]">THE UMBRELLA FIELD</span>
+            </div>
+
+            <h3 class="text-2xl font-display font-bold text-[var(--text-primary)]">Artificial Intelligence</h3>
+            <p class="text-xs font-mono-code text-[var(--accent-warm)]">Machines performing cognitive tasks</p>
+            
+            <p class="text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed">
+              Encompasses prediction, computer vision, language translation, speech processing, and classification. Models identify statistical distributions across training data.
+            </p>
+
+            <div class="p-4 rounded-xl bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] space-y-1.5 text-xs font-mono-code">
+              <div class="text-[var(--text-muted)] text-[10px] uppercase">Operational Mechanics:</div>
+              <div class="text-[var(--text-primary)]">Matrix transformations &bull; Next-token probability scoring &bull; Frozen weights.</div>
+            </div>
+          </div>
+
+          <div class="mt-8 pt-4 border-t border-[var(--border-subtle)]">
+            <span class="text-[10px] font-mono-code text-[var(--text-muted)] uppercase block mb-1">Canonical Archetype:</span>
+            <div class="text-xs text-[var(--text-primary)] font-semibold flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-[var(--text-muted)]"></span>
+              Spam filters, translation models, or isolated text completion.
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 2: AI AGENT -->
+        <div class="glass-surface rounded-2xl p-6 sm:p-8 flex flex-col justify-between group border-[var(--accent-warm-border)] bg-[var(--accent-warm-soft)] transition-all shadow-md">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono-code px-2 py-0.5 rounded bg-[var(--accent-warm)] text-slate-950 font-bold">LEVEL 02</span>
+              <span class="text-[11px] font-mono-code text-[var(--accent-warm)]">GOAL-DIRECTED ACTOR</span>
+            </div>
+
+            <h3 class="text-2xl font-display font-bold text-[var(--text-primary)]">AI Agent</h3>
+            <p class="text-xs font-mono-code text-[var(--accent-warm)]">LLM + Tools + Environmental Memory</p>
+            
+            <p class="text-xs sm:text-sm text-[var(--text-primary)] leading-relaxed">
+              An AI-powered system that observes an external context, evaluates options, invokes function calls or tools (APIs, calculators, databases), and returns an actionable result.
+            </p>
+
+            <div class="p-4 rounded-xl bg-[var(--bg-surface)] border border-[var(--accent-warm-border)] space-y-1.5 text-xs font-mono-code">
+              <div class="text-[var(--accent-warm)] text-[10px] uppercase">Operational Mechanics:</div>
+              <div class="text-[var(--text-primary)]">Reasoning loop &bull; Tool selection &bull; Parsing schema outputs &bull; Single-task execution.</div>
+            </div>
+          </div>
+
+          <div class="mt-8 pt-4 border-t border-[var(--accent-warm-border)]">
+            <span class="text-[10px] font-mono-code text-[var(--accent-warm)] uppercase block mb-1">Canonical Archetype:</span>
+            <div class="text-xs text-[var(--text-primary)] font-semibold flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-[var(--accent-warm)]"></span>
+              Flight booking assistant queries live schedules and reserves seats.
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 3: AGENTIC AI -->
+        <div class="glass-surface rounded-2xl p-6 sm:p-8 flex flex-col justify-between group border-[var(--accent-emerald-border)] bg-[var(--accent-emerald-soft)] transition-all shadow-md">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono-code px-2 py-0.5 rounded bg-[var(--accent-emerald)] text-slate-950 font-bold">LEVEL 03</span>
+              <span class="text-[11px] font-mono-code text-[var(--accent-emerald)]">AUTONOMOUS SYSTEM</span>
+            </div>
+
+            <h3 class="text-2xl font-display font-bold text-[var(--text-primary)]">Agentic AI</h3>
+            <p class="text-xs font-mono-code text-[var(--accent-emerald)]">Plan &bull; Act &bull; Observe &bull; Adapt</p>
+            
+            <p class="text-xs sm:text-sm text-[var(--text-primary)] leading-relaxed">
+              Complex systems that decompose broad directives into sub-goals, orchestrate swarms of specialized worker agents, observe intermediate milestones, self-correct errors, and coordinate across time.
+            </p>
+
+            <div class="p-4 rounded-xl bg-[var(--bg-surface)] border border-[var(--accent-emerald-border)] space-y-1.5 text-xs font-mono-code">
+              <div class="text-[var(--accent-emerald)] text-[10px] uppercase">Operational Mechanics:</div>
+              <div class="text-[var(--text-primary)]">Multi-step planning &bull; Subagent delegation &bull; Dynamic retries &bull; Guardrails.</div>
+            </div>
+          </div>
+
+          <div class="mt-8 pt-4 border-t border-[var(--accent-emerald-border)]">
+            <span class="text-[10px] font-mono-code text-[var(--accent-emerald)] uppercase block mb-1">Canonical Archetype:</span>
+            <div class="text-xs text-[var(--text-primary)] font-semibold flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-[var(--accent-emerald)]"></span>
+              Autonomous coder writes repo features, runs test suite, and patches bugs.
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Nuance callout bar -->
+      <div class="p-5 rounded-2xl glass-surface border-[var(--border-subtle)] flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex items-center space-x-3">
+          <div class="w-9 h-9 rounded-lg bg-[var(--accent-warm-soft)] text-[var(--accent-warm)] border border-[var(--accent-warm-border)] flex items-center justify-center font-bold text-sm shrink-0">
+            &Delta;
+          </div>
+          <p class="text-xs sm:text-sm text-[var(--text-secondary)]">
+            <strong class="text-[var(--text-primary)]">The Essential Architectural Difference:</strong> An LLM generates words. An Agent interacts through tools. Agentic AI designs, manages, and adapts the entire multi-stage trajectory toward a distant goal.
+          </p>
+        </div>
+        <a href="#scenario" class="text-xs font-mono-code text-[var(--accent-warm)] hover:underline shrink-0 flex items-center gap-1">
+          <span>See High-Stakes Enterprise Example &rarr;</span>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ======================================================== -->
+  <!-- SECTION 02: INFERENCE & AUTOREGRESSIVE GENERATOR -->
+  <!-- ======================================================== -->
+  <section id="mechanics" class="py-20 px-4 lg:px-8 border-b border-[var(--border-subtle)] max-w-7xl mx-auto">
+    <div class="space-y-12">
+      
+      <div>
+        <div class="flex items-center space-x-2 text-[var(--accent-warm)] text-xs font-mono-code mb-2">
+          <span>SECTION 02 // INFERENCE MECHANICS</span>
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-display font-extrabold text-[var(--text-primary)] tracking-tight">
+          How AI Works Today: The Generation Loop
+        </h2>
+        <p class="text-[var(--text-secondary)] text-sm sm:text-base mt-2 max-w-2xl">
+          At inference time, a trained neural model maps prompt tokens to logits. Weights are completely frozen after release; learning happens before deployment.
+        </p>
+      </div>
+
+      <!-- 4-Step Linear Pipeline Visual -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        
+        <div class="glass-surface p-5 rounded-xl">
+          <span class="text-3xl font-display font-bold text-[var(--text-muted)] block mb-1">01</span>
+          <div class="font-mono-code text-xs text-[var(--accent-warm)] uppercase mb-1">Input Layer</div>
+          <h4 class="text-sm font-bold text-[var(--text-primary)] mb-1">Raw Payload</h4>
+          <p class="text-xs text-[var(--text-secondary)]">Text prompt, code files, uploaded images, audio, or structured JSON arguments.</p>
+        </div>
+
+        <div class="glass-surface p-5 rounded-xl">
+          <span class="text-3xl font-display font-bold text-[var(--text-muted)] block mb-1">02</span>
+          <div class="font-mono-code text-xs text-[var(--accent-warm)] uppercase mb-1">Tokenizer</div>
+          <h4 class="text-sm font-bold text-[var(--text-primary)] mb-1">Vector Embedding</h4>
+          <p class="text-xs text-[var(--text-secondary)]">Splits text into subword tokens and maps them to dense mathematical coordinates.</p>
+        </div>
+
+        <div class="glass-surface p-5 rounded-xl border-[var(--accent-warm-border)]">
+          <span class="text-3xl font-display font-bold text-[var(--accent-warm)] block mb-1">03</span>
+          <div class="font-mono-code text-xs text-[var(--accent-warm)] uppercase mb-1">Neural Matrix</div>
+          <h4 class="text-sm font-bold text-[var(--text-primary)] mb-1">Frozen Weights</h4>
+          <p class="text-xs text-[var(--text-secondary)]">Attention layers evaluate token relationships and generate next-token probabilities.</p>
+        </div>
+
+        <div class="glass-surface p-5 rounded-xl border-[var(--accent-emerald-border)]">
+          <span class="text-3xl font-display font-bold text-[var(--accent-emerald)] block mb-1">04</span>
+          <div class="font-mono-code text-xs text-[var(--accent-emerald)] uppercase mb-1">Output Token</div>
+          <h4 class="text-sm font-bold text-[var(--text-primary)] mb-1">Sample & Append</h4>
+          <p class="text-xs text-[var(--text-secondary)]">Sampled token appends to context buffer; loop re-executes autoregressively.</p>
+        </div>
+
+      </div>
+
+      <!-- Interactive Next-Token Generation Laboratory -->
+      <div class="glass-surface rounded-2xl p-6 sm:p-8 border-[var(--border-subtle)] space-y-6">
+        
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-[var(--border-subtle)] gap-3">
+          <div>
+            <h3 class="font-display font-bold text-lg text-[var(--text-primary)]">Interactive Next-Token Probability Simulator</h3>
+            <p class="text-xs font-mono-code text-[var(--text-secondary)]">Experience how next tokens are selected and appended to the context buffer</p>
+          </div>
+          <div class="flex items-center space-x-2">
+            <button onclick="stepInteractiveToken()" class="px-3.5 py-2 rounded-lg bg-[var(--accent-warm)] text-slate-950 font-bold font-mono-code text-xs flex items-center gap-1.5 shadow-sm hover:opacity-90 transition-opacity">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path></svg>
+              <span>Sample Next Token</span>
+            </button>
+            <button onclick="resetInteractiveToken()" class="px-3 py-2 rounded-lg bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] font-mono-code text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)]">
+              Reset
+            </button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          
+          <div class="lg:col-span-7 space-y-2">
+            <span class="text-xs font-mono-code text-[var(--text-muted)] uppercase">Context Accumulation Buffer:</span>
+            <div id="tokenContextDisplay" class="p-4 rounded-xl bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] font-mono-code text-xs sm:text-sm leading-relaxed min-h-[140px] text-[var(--text-primary)]">
+              <span class="text-[var(--accent-warm)] font-bold">[PROMPT]:</span> The fundamental shift in modern artificial intelligence is from isolated text generation to goal-directed 
+            </div>
+            <div class="flex items-center justify-between text-xs font-mono-code text-[var(--text-muted)] pt-1">
+              <span>Tokens in Context: <strong id="tokenCounterNum" class="text-[var(--accent-warm)]">24</strong></span>
+              <span class="text-rose-500 font-medium">Frozen Weights: Does not learn from chat</span>
+            </div>
+          </div>
+
+          <div class="lg:col-span-5 space-y-2">
+            <span class="text-xs font-mono-code text-[var(--text-muted)] uppercase">Candidate Logit Probabilities:</span>
+            <div id="tokenLogitsContainer" class="space-y-2">
+              <!-- Dynamically inserted -->
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ======================================================== -->
+  <!-- SECTION 03: THE 5-LAYER ICEBERG SHOWPIECE (BESPOKE INTERACTIVE) -->
+  <!-- ======================================================== -->
+  <section id="iceberg" class="py-20 px-4 lg:px-8 border-b border-[var(--border-subtle)] max-w-7xl mx-auto">
+    <div class="space-y-12">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div>
+          <div class="flex items-center space-x-2 text-[var(--accent-warm)] text-xs font-mono-code mb-2">
+            <span>SECTION 03 // THE CONCEPTUAL ROADMAP</span>
+          </div>
+          <h2 class="text-3xl sm:text-5xl font-display font-extrabold text-[var(--text-primary)] tracking-tight">
+            The 5-Layer Iceberg Model
+          </h2>
+          <p class="text-[var(--text-secondary)] text-sm sm:text-base mt-2 max-w-2xl">
+            A memorable way to discuss five capability layers. Hover over each stratum of the iceberg to inspect technical requirements, operational status, and real-world feasibility.
+          </p>
+        </div>
+        <div class="text-xs font-mono-code px-3 py-1.5 rounded-lg bg-[var(--accent-warm-soft)] text-[var(--accent-warm)] border border-[var(--accent-warm-border)] self-start md:self-auto">
+          INTERACTIVE HOVER MAP &bull;
+        </div>
+      </div>
+
+      <!-- MAIN ICEBERG GRAPHIC & TELEMETRY DASHBOARD -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        
+        <!-- LEFT: BESPOKE VECTOR ICEBERG WITH HOVER ZONES -->
+        <div class="lg:col-span-7 glass-surface rounded-2xl p-6 sm:p-8 border-[var(--border-subtle)] relative overflow-hidden flex flex-col items-center">
+          
+          <!-- Sky / Atmospheric Header -->
+          <div class="w-full flex items-center justify-between pb-2 text-xs font-mono-code">
+            <span class="text-[var(--accent-warm)] font-bold flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-[var(--accent-warm)]"></span>
+              ATMOSPHERIC REALM: ABOVE THE WATERLINE
+            </span>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-[var(--accent-emerald-soft)] text-[var(--accent-emerald)] font-bold">REAL TODAY</span>
+          </div>
+
+          <!-- THE SVG ICEBERG -->
+          <div class="w-full max-w-lg relative py-4">
+            
+            <svg viewBox="0 0 500 620" class="w-full h-auto drop-shadow-xl select-none" xmlns="http://www.w3.org/2000/svg">
+              
+              <!-- Sky Gradient / Ambient Background Behind Tip -->
+              <defs>
+                <linearGradient id="iceTipGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#fef08a" stop-opacity="0.9"/>
+                  <stop offset="100%" stop-color="#f59e0b" stop-opacity="0.8"/>
+                </linearGradient>
+
+                <linearGradient id="iceLayer2Grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#fcd34d" stop-opacity="0.85"/>
+                  <stop offset="100%" stop-color="#d97706" stop-opacity="0.75"/>
+                </linearGradient>
+
+                <linearGradient id="iceLayer3Grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.65"/>
+                  <stop offset="100%" stop-color="#0284c7" stop-opacity="0.8"/>
+                </linearGradient>
+
+                <linearGradient id="iceLayer4Grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#0369a1" stop-opacity="0.75"/>
+                  <stop offset="100%" stop-color="#0c4a6e" stop-opacity="0.9"/>
+                </linearGradient>
+
+                <linearGradient id="iceLayer5Grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#082f49" stop-opacity="0.85"/>
+                  <stop offset="100%" stop-color="#021729" stop-opacity="0.95"/>
+                </linearGradient>
+              </defs>
+
+              <!-- ============================================== -->
+              <!-- LAYER 1: TIP (LLMs) -->
+              <!-- ============================================== -->
+              <g class="iceberg-facet" id="svg-layer-1" onmouseenter="hoverIceberg(1)" onclick="hoverIceberg(1)">
+                <polygon points="250,20 190,95 240,110 310,95" fill="url(#iceTipGrad)" stroke="#f59e0b" stroke-width="1.5"/>
+                <!-- Facet creases -->
+                <line x1="250" y1="20" x2="240" y2="110" stroke="#ffffff" stroke-width="1" stroke-opacity="0.6"/>
+                <text x="250" y="75" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold" fill="#0f172a" text-anchor="middle">01 // LLMs</text>
+              </g>
+
+              <!-- ============================================== -->
+              <!-- LAYER 2: JUST ABOVE WATER (Agentic AI) -->
+              <!-- ============================================== -->
+              <g class="iceberg-facet" id="svg-layer-2" onmouseenter="hoverIceberg(2)" onclick="hoverIceberg(2)">
+                <polygon points="190,95 140,185 245,200 360,185 310,95 240,110" fill="url(#iceLayer2Grad)" stroke="#d97706" stroke-width="1.5"/>
+                <!-- Creases -->
+                <line x1="240" y1="110" x2="245" y2="200" stroke="#ffffff" stroke-width="1" stroke-opacity="0.5"/>
+                <line x1="190" y1="95" x2="245" y2="200" stroke="#000000" stroke-width="0.8" stroke-opacity="0.2"/>
+                <text x="250" y="160" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="bold" fill="#0f172a" text-anchor="middle">02 // AGENTIC AI</text>
+              </g>
+
+              <!-- ============================================== -->
+              <!-- WATERLINE VISUAL DIVIDER -->
+              <!-- ============================================== -->
+              <g>
+                <!-- Water ripple background -->
+                <rect x="0" y="195" width="500" height="425" fill="var(--water-bg)" opacity="0.6"/>
+                <!-- Flowing animated water wave line -->
+                <line x1="10" y1="200" x2="490" y2="200" stroke="var(--water-color)" stroke-width="3" stroke-dasharray="6,4" class="waterline-flow"/>
+                <!-- Center waterline marker pill -->
+                <rect x="160" y="190" width="180" height="20" rx="10" fill="var(--bg-base)" stroke="var(--water-color)" stroke-width="1.5"/>
+                <text x="250" y="204" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="bold" fill="var(--water-color)" text-anchor="middle">
+                  &sim; THE WATERLINE &sim;
+                </text>
+              </g>
+
+              <!-- ============================================== -->
+              <!-- LAYER 3: SUBSURFACE (Multi-Agent Swarms) -->
+              <!-- ============================================== -->
+              <g class="iceberg-facet" id="svg-layer-3" onmouseenter="hoverIceberg(3)" onclick="hoverIceberg(3)">
+                <polygon points="140,205 100,320 230,335 400,320 360,205 245,205" fill="url(#iceLayer3Grad)" stroke="#0284c7" stroke-width="1.5"/>
+                <line x1="245" y1="205" x2="230" y2="335" stroke="#ffffff" stroke-width="1" stroke-opacity="0.4"/>
+                <text x="250" y="275" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">03 // MULTI-AGENT SWARMS</text>
+              </g>
+
+              <!-- ============================================== -->
+              <!-- LAYER 4: DEEP WATER (AGI - Broad Generality) -->
+              <!-- ============================================== -->
+              <g class="iceberg-facet" id="svg-layer-4" onmouseenter="hoverIceberg(4)" onclick="hoverIceberg(4)">
+                <polygon points="100,320 70,450 220,470 430,450 400,320 230,335" fill="url(#iceLayer4Grad)" stroke="#0369a1" stroke-width="1.5"/>
+                <line x1="230" y1="335" x2="220" y2="470" stroke="#ffffff" stroke-width="0.8" stroke-opacity="0.3"/>
+                <text x="250" y="400" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="bold" fill="#e0f2fe" text-anchor="middle">04 // AGI (HUMAN-LEVEL)</text>
+              </g>
+
+              <!-- ============================================== -->
+              <!-- LAYER 5: ABYSS (Superintelligence - SI) -->
+              <!-- ============================================== -->
+              <g class="iceberg-facet" id="svg-layer-5" onmouseenter="hoverIceberg(5)" onclick="hoverIceberg(5)">
+                <polygon points="70,450 160,590 250,605 340,590 430,450 220,470" fill="url(#iceLayer5Grad)" stroke="#0c4a6e" stroke-width="1.5"/>
+                <line x1="220" y1="470" x2="250" y2="605" stroke="#ffffff" stroke-width="0.5" stroke-opacity="0.3"/>
+                <text x="250" y="535" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="bold" fill="#bae6fd" text-anchor="middle">05 // SUPERINTELLIGENCE</text>
+              </g>
+
+              <!-- Depth Measurement Indicators -->
+              <text x="455" y="195" font-family="'JetBrains Mono', monospace" font-size="9" fill="var(--text-muted)">0m</text>
+              <text x="455" y="325" font-family="'JetBrains Mono', monospace" font-size="9" fill="var(--text-muted)">-500m</text>
+              <text x="455" y="455" font-family="'JetBrains Mono', monospace" font-size="9" fill="var(--text-muted)">-2,500m</text>
+              <text x="455" y="595" font-family="'JetBrains Mono', monospace" font-size="9" fill="var(--text-muted)">-10,000m</text>
+            </svg>
+
+          </div>
+
+          <!-- Bottom Footer indicator -->
+          <div class="w-full flex items-center justify-between pt-2 border-t border-[var(--border-subtle)] text-xs font-mono-code text-[var(--text-muted)]">
+            <span>&darr; Subsurface Depth Gradient</span>
+            <span class="text-[var(--accent-warm)]">Hover or Tap Any Facet</span>
+          </div>
+
+        </div>
+
+        <!-- RIGHT: DYNAMIC TELEMETRY INSPECTION HUD -->
+        <div class="lg:col-span-5 space-y-4">
+          
+          <div id="icebergCardDisplay" class="glass-surface rounded-2xl p-6 sm:p-8 border-[var(--accent-warm-border)] space-y-4 transition-all">
+            
+            <div class="flex items-center justify-between pb-3 border-b border-[var(--border-subtle)]">
+              <span id="hudLayerNumber" class="text-xs font-mono-code px-2 py-0.5 rounded bg-[var(--accent-warm)] text-slate-950 font-bold">
+                LAYER 02
+              </span>
+              <span id="hudLayerStatus" class="text-xs font-mono-code text-[var(--accent-warm)] font-semibold">
+              
+              </span>
+            </div>
+
+            <div>
+              <span id="hudLayerDepth" class="text-[10px] font-mono-code text-[var(--text-muted)] uppercase tracking-wider block mb-1">Depth: 0m to +50m (Above Waterline)</span>
+              <h3 id="hudLayerTitle" class="text-2xl sm:text-3xl font-display font-bold text-[var(--text-primary)]">Agentic AI</h3>
+              <p id="hudLayerSubtitle" class="text-xs font-mono-code text-[var(--accent-warm)] mt-1">Plan &bull; Act &bull; Observe &bull; Adapt</p>
+            </div>
+
+            <p id="hudLayerDesc" class="text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed">
+              Systems that break complex user goals into intermediate tasks, coordinate tools and memory, observe execution outputs, and adapt trajectories toward completion.
+            </p>
+
+            <div class="space-y-2 pt-2">
+              <div class="p-3 rounded-lg bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] space-y-1">
+                <span class="text-[10px] font-mono-code text-[var(--text-muted)] uppercase block">Technical Core:</span>
+                <span id="hudLayerCore" class="text-xs text-[var(--text-primary)] font-medium">ReAct loops, function calling schemas, tool execution sandboxes, persistent scratchpads.</span>
+              </div>
+              <div class="p-3 rounded-lg bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] space-y-1">
+                <span class="text-[10px] font-mono-code text-[var(--text-muted)] uppercase block">Enterprise Reality:</span>
+                <span id="hudLayerReality" class="text-xs text-[var(--accent-emerald)] font-semibold">Deployed in production for coding assistants, CRM agents, and customer workflows.</span>
+              </div>
+            </div>
+
+            <!-- Layer Selection Buttons -->
+            <div class="pt-4 border-t border-[var(--border-subtle)]">
+              <span class="text-[10px] font-mono-code text-[var(--text-muted)] uppercase block mb-2">Jump to Layer:</span>
+              <div class="grid grid-cols-5 gap-1.5 font-mono-code text-xs">
+                <button onclick="hoverIceberg(1)" class="p-2 rounded bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] hover:border-[var(--accent-warm-border)] text-center font-bold">01</button>
+                <button onclick="hoverIceberg(2)" class="p-2 rounded bg-[var(--accent-warm-soft)] border border-[var(--accent-warm-border)] text-[var(--accent-warm)] text-center font-bold">02</button>
+                <button onclick="hoverIceberg(3)" class="p-2 rounded bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] hover:border-[var(--accent-warm-border)] text-center font-bold">03</button>
+                <button onclick="hoverIceberg(4)" class="p-2 rounded bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] hover:border-[var(--accent-warm-border)] text-center font-bold">04</button>
+                <button onclick="hoverIceberg(5)" class="p-2 rounded bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] hover:border-[var(--accent-warm-border)] text-center font-bold">05</button>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ======================================================== -->
+  <!-- SECTION 04: MULTI-AGENT SWARMS & LIVE CANVAS SIMULATOR -->
+  <!-- ======================================================== -->
+  <section id="swarm" class="py-20 px-4 lg:px-8 border-b border-[var(--border-subtle)] max-w-7xl mx-auto">
+    <div class="space-y-12">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div>
+          <div class="flex items-center space-x-2 text-[var(--accent-warm)] text-xs font-mono-code mb-2">
+            <span>SECTION 04 // COLLECTIVE INTELLIGENCE</span>
+          </div>
+          <h2 class="text-3xl sm:text-5xl font-display font-extrabold text-[var(--text-primary)] tracking-tight">
+            When One Agent Becomes a Team
+          </h2>
+          <p class="text-[var(--text-secondary)] text-sm sm:text-base mt-2 max-w-2xl">
+            Specialized agents collaborate across isolated contexts, delegating tasks and reviewing outputs through an orchestrator.
+          </p>
+        </div>
+        <button onclick="triggerSwarmSim()" class="px-4 py-2.5 rounded-lg bg-[var(--accent-emerald)] text-slate-950 font-mono-code font-bold text-xs flex items-center gap-2 hover:opacity-95 transition-opacity self-start md:self-auto shadow-md">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path></svg>
+          <span>Trigger Live Swarm Execution</span>
+        </button>
+      </div>
+
+      <!-- Live Canvas & Telemetry Board -->
+      <div class="glass-surface rounded-2xl p-6 sm:p-8 border-[var(--border-subtle)] space-y-6">
+        
+        <div class="flex items-center justify-between pb-3 border-b border-[var(--border-subtle)] text-xs font-mono-code">
+          <div class="flex items-center space-x-2">
+            <span class="w-2 h-2 rounded-full bg-[var(--accent-emerald)] animate-pulse"></span>
+            <span class="text-[var(--text-primary)] font-bold">ORCHESTRATION MESSAGE BUS // LIVE TELEMETRY</span>
+          </div>
+          <span id="swarmEngineBadge" class="px-2 py-0.5 rounded bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] text-[var(--text-secondary)]">STATUS: READY</span>
+        </div>
+
+        <!-- HTML5 Canvas Visualizer -->
+        <div class="relative w-full h-80 bg-[var(--bg-surface-elevated)] rounded-xl overflow-hidden border border-[var(--border-subtle)]">
+          <canvas id="swarmCanvas" class="w-full h-full block"></canvas>
+          
+          <div class="absolute bottom-3 left-3 px-3 py-1.5 rounded-lg bg-[var(--bg-surface)] border border-[var(--border-subtle)] text-[11px] font-mono-code text-[var(--text-secondary)] shadow-sm">
+            Packets in Flight: <span id="swarmPacketCount" class="text-[var(--accent-warm)] font-bold">0</span> &bull; 
+            Verified Units: <span id="swarmUnitCount" class="text-[var(--accent-emerald)] font-bold">0</span>
+          </div>
+        </div>
+
+        <!-- 4 Specialized Swarm Roles Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          
+          <div class="p-4 rounded-xl bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] space-y-2">
+            <div class="flex items-center space-x-2 text-xs font-mono-code text-[var(--accent-warm)] font-bold">
+              <span class="w-2 h-2 rounded-full bg-[var(--accent-warm)]"></span>
+              <span>RESEARCH AGENT</span>
+            </div>
+            <p class="text-xs text-[var(--text-secondary)]">Queries search indices, databases, and whitepapers to extract verified facts.</p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] space-y-2">
+            <div class="flex items-center space-x-2 text-xs font-mono-code text-[var(--accent-cyan)] font-bold">
+              <span class="w-2 h-2 rounded-full bg-[var(--accent-cyan)]"></span>
+              <span>ANALYST AGENT</span>
+            </div>
+            <p class="text-xs text-[var(--text-secondary)]">Evaluates retrieved data, calculates risk formulas, and structure outputs.</p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] space-y-2">
+            <div class="flex items-center space-x-2 text-xs font-mono-code text-[var(--accent-emerald)] font-bold">
+              <span class="w-2 h-2 rounded-full bg-[var(--accent-emerald)]"></span>
+              <span>BUILDER AGENT</span>
+            </div>
+            <p class="text-xs text-[var(--text-secondary)]">Generates application code, compiles documents, and writes customer copy.</p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] space-y-2">
+            <div class="flex items-center space-x-2 text-xs font-mono-code text-[var(--accent-rose)] font-bold">
+              <span class="w-2 h-2 rounded-full bg-[var(--accent-rose)]"></span>
+              <span>REVIEWER AGENT</span>
+            </div>
+            <p class="text-xs text-[var(--text-secondary)]">Performs linter checks, test suite validation, security scans, and approvals.</p>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Critical Trade-offs Matrix -->
+      <div class="p-6 rounded-2xl bg-[var(--accent-warm-soft)] border border-[var(--accent-warm-border)] space-y-3">
+        <h4 class="font-mono-code text-xs font-bold text-[var(--accent-warm)] uppercase tracking-wider">
+          Crucial Trade-offs: The Reality of Multi-Agent Deployments
+        </h4>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-xs text-[var(--text-secondary)]">
+          <div>
+            <strong class="text-[var(--text-primary)] block mb-1">Coordination Overhead:</strong>
+            Inter-agent messaging tokens grow non-linearly with group size.
+          </div>
+          <div>
+            <strong class="text-[var(--text-primary)] block mb-1">Duplicated Effort:</strong>
+            Agents can accidentally search redundant endpoints without central logs.
+          </div>
+          <div>
+            <strong class="text-[var(--text-primary)] block mb-1">Error Cascades:</strong>
+            A small hallucination in early research propagates down into building.
+          </div>
+          <div>
+            <strong class="text-[var(--text-primary)] block mb-1">Token Cost & Latency:</strong>
+            Requires hard execution ceilings and final human sign-off gates.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ======================================================== -->
+  <!-- SECTION 05: REAL WORLD SCENARIO: 3 LEVELS -->
+  <!-- ======================================================== -->
+  <section id="scenario" class="py-20 px-4 lg:px-8 border-b border-[var(--border-subtle)] max-w-7xl mx-auto">
+    <div class="space-y-12">
+      
+      <div>
+        <div class="flex items-center space-x-2 text-[var(--accent-warm)] text-xs font-mono-code mb-2">
+          <span>SECTION 05 // REAL-WORLD CASE STUDY</span>
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-display font-extrabold text-[var(--text-primary)] tracking-tight">
+          One Request, Three Levels of Capability
+        </h2>
+        <p class="text-[var(--text-secondary)] text-sm sm:text-base mt-2 max-w-2xl">
+          Prompt: <span class="font-mono-code text-[var(--accent-warm)] italic">"Prepare me for tomorrow's high-stakes client renewal meeting with Acme Corp."</span>
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- LEVEL 1 -->
+        <div class="glass-surface rounded-2xl p-6 flex flex-col justify-between border-[var(--border-subtle)]">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono-code px-2 py-0.5 rounded bg-[var(--bg-surface-elevated)] text-[var(--text-secondary)]">LEVEL 1: AI</span>
+              <span class="text-[11px] font-mono-code text-[var(--text-muted)]">PASSIVE SUMMARY</span>
+            </div>
+            <h4 class="text-lg font-bold text-[var(--text-primary)]">Summarizes Past Notes</h4>
+            <p class="text-xs text-[var(--text-secondary)] leading-relaxed">
+              Reads whatever notes you paste into the chat. Condenses previous meeting minutes and suggests generic negotiation tips from training data.
+            </p>
+            <div class="p-3.5 rounded-xl bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] space-y-1 text-xs font-mono-code">
+              <div class="text-[var(--text-muted)] text-[10px] uppercase">Deliverable:</div>
+              <div class="text-[var(--text-primary)]">&bull; Text summary of pasted notes</div>
+              <div class="text-[var(--text-primary)]">&bull; Generic negotiation checklist</div>
+              <div class="text-rose-500 text-[10px]">&cross; Zero live CRM or calendar data</div>
+            </div>
+          </div>
+          <div class="mt-6 pt-3 border-t border-[var(--border-subtle)] text-[11px] font-mono-code text-[var(--text-muted)]">
+            Autonomy: None &bull; Human fetches everything
+          </div>
+        </div>
+
+        <!-- LEVEL 2 -->
+        <div class="glass-surface rounded-2xl p-6 flex flex-col justify-between border-[var(--accent-warm-border)] bg-[var(--accent-warm-soft)] shadow-md">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono-code px-2 py-0.5 rounded bg-[var(--accent-warm)] text-slate-950 font-bold">LEVEL 2: AI AGENT</span>
+              <span class="text-[11px] font-mono-code text-[var(--accent-warm)]">API INTEGRATION</span>
+            </div>
+            <h4 class="text-lg font-bold text-[var(--text-primary)]">Queries Enterprise Systems</h4>
+            <p class="text-xs text-[var(--text-primary)] leading-relaxed">
+              Uses authorized CRM and calendar tools to fetch live contract status, open support tickets, and executive availability.
+            </p>
+            <div class="p-3.5 rounded-xl bg-[var(--bg-surface)] border border-[var(--accent-warm-border)] space-y-1 text-xs font-mono-code">
+              <div class="text-[var(--accent-warm)] text-[10px] uppercase">Deliverable:</div>
+              <div class="text-[var(--text-primary)]">&bull; Live Salesforce ARR &amp; renewal date</div>
+              <div class="text-[var(--text-primary)]">&bull; Zendesk open escalation ticket alert</div>
+              <div class="text-[var(--text-primary)]">&bull; 45-min open calendar slot retrieved</div>
+            </div>
+          </div>
+          <div class="mt-6 pt-3 border-t border-[var(--accent-warm-border)] text-[11px] font-mono-code text-[var(--accent-warm)]">
+            Autonomy: Single-task live tool execution
+          </div>
+        </div>
+
+        <!-- LEVEL 3 -->
+        <div class="glass-surface rounded-2xl p-6 flex flex-col justify-between border-[var(--accent-emerald-border)] bg-[var(--accent-emerald-soft)] shadow-md">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono-code px-2 py-0.5 rounded bg-[var(--accent-emerald)] text-slate-950 font-bold">LEVEL 3: AGENTIC WORKFLOW</span>
+              <span class="text-[11px] font-mono-code text-[var(--accent-emerald)]">END-TO-END PIPELINE</span>
+            </div>
+            <h4 class="text-lg font-bold text-[var(--text-primary)]">Coordinates Full Mission</h4>
+            <p class="text-xs text-[var(--text-primary)] leading-relaxed">
+              Dispatches research agents to review client earnings, drafts a personalized slide deck, checks internal attendee calendars, and requests human sign-off.
+            </p>
+            <div class="p-3.5 rounded-xl bg-[var(--bg-surface)] border border-[var(--accent-emerald-border)] space-y-1 text-xs font-mono-code">
+              <div class="text-[var(--accent-emerald)] text-[10px] uppercase">Deliverable:</div>
+              <div class="text-[var(--text-primary)]">&bull; Executive dossier &amp; presentation deck</div>
+              <div class="text-[var(--text-primary)]">&bull; Pre-meeting brief delivered to VP</div>
+              <div class="text-[var(--text-primary)]">&bull; Human gate: Awaiting email dispatch sign-off</div>
+            </div>
+          </div>
+          <div class="mt-6 pt-3 border-t border-[var(--accent-emerald-border)] text-[11px] font-mono-code text-[var(--accent-emerald)]">
+            Autonomy: Multi-step with human governance
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ======================================================== -->
+  <!-- SECTION 06: EPISTEMOLOGY: THE 3 KNOWLEDGE STORES -->
+  <!-- ======================================================== -->
+  <section id="knowledge" class="py-20 px-4 lg:px-8 border-b border-[var(--border-subtle)] max-w-7xl mx-auto">
+    <div class="space-y-12">
+      
+      <div>
+        <div class="flex items-center space-x-2 text-[var(--accent-warm)] text-xs font-mono-code mb-2">
+          <span>SECTION 06 // EPISTEMOLOGY OF AI</span>
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-display font-extrabold text-[var(--text-primary)] tracking-tight">
+          How a Model "Knows" Things
+        </h2>
+        <p class="text-[var(--text-secondary)] text-sm sm:text-base mt-2 max-w-2xl">
+          An AI system retrieves and operates on knowledge from three fundamentally distinct architectural locations.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <div class="glass-surface p-6 sm:p-8 rounded-2xl flex flex-col justify-between">
+          <div class="space-y-3">
+            <span class="w-10 h-10 rounded-lg bg-[var(--accent-warm-soft)] text-[var(--accent-warm)] border border-[var(--accent-warm-border)] flex items-center justify-center font-mono-code font-bold text-base">
+              K1
+            </span>
+            <h3 class="text-xl font-display font-bold text-[var(--text-primary)]">In the Weights</h3>
+            <span class="text-xs font-mono-code text-[var(--accent-warm)] block">Learned During Training</span>
+            <p class="text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed">
+              Statistical patterns etched permanently into parameter matrices. Fixed after deployment; ends abruptly at training cutoff date.
+            </p>
+            <ul class="text-xs text-[var(--text-secondary)] space-y-1.5 list-disc list-inside pt-2">
+              <li>High cost to retrain or update</li>
+              <li>Encodes language fluency &amp; reasoning</li>
+              <li>Cannot see real-time developments</li>
+            </ul>
+          </div>
+          <div class="mt-6 pt-3 border-t border-[var(--border-subtle)] text-[11px] font-mono-code text-[var(--text-muted)]">
+            State: Static / Frozen
+          </div>
+        </div>
+
+        <div class="glass-surface p-6 sm:p-8 rounded-2xl flex flex-col justify-between">
+          <div class="space-y-3">
+            <span class="w-10 h-10 rounded-lg bg-[var(--accent-cyan)] opacity-90 text-white flex items-center justify-center font-mono-code font-bold text-base">
+              K2
+            </span>
+            <h3 class="text-xl font-display font-bold text-[var(--text-primary)]">In the Context</h3>
+            <span class="text-xs font-mono-code text-[var(--accent-cyan)] block">Ephemeral Working Memory</span>
+            <p class="text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed">
+              Tokens actively residing in the current conversation window. Readily accessible during attention computation.
+            </p>
+            <ul class="text-xs text-[var(--text-secondary)] space-y-1.5 list-disc list-inside pt-2">
+              <li>Immediate attention lookup</li>
+              <li>Bounded by token context window</li>
+              <li>Completely resets when session ends</li>
+            </ul>
+          </div>
+          <div class="mt-6 pt-3 border-t border-[var(--border-subtle)] text-[11px] font-mono-code text-[var(--text-muted)]">
+            State: Ephemeral / Session-only
+          </div>
+        </div>
+
+        <div class="glass-surface p-6 sm:p-8 rounded-2xl flex flex-col justify-between border-[var(--accent-emerald-border)] bg-[var(--accent-emerald-soft)] shadow-md">
+          <div class="space-y-3">
+            <span class="w-10 h-10 rounded-lg bg-[var(--accent-emerald)] text-slate-950 flex items-center justify-center font-mono-code font-bold text-base">
+              K3
+            </span>
+            <h3 class="text-xl font-display font-bold text-[var(--text-primary)]">Outside the Model</h3>
+            <span class="text-xs font-mono-code text-[var(--accent-emerald)] block">RAG, Vector DBs &amp; Live APIs</span>
+            <p class="text-xs sm:text-sm text-[var(--text-primary)] leading-relaxed">
+              External structured databases, company documents, live enterprise APIs, and persistent user memory files.
+            </p>
+            <ul class="text-xs text-[var(--text-primary)] space-y-1.5 list-disc list-inside pt-2">
+              <li>Fetched dynamically on demand</li>
+              <li>Always synchronized with real-time reality</li>
+              <li>Governed by role-based permissions</li>
+            </ul>
+          </div>
+          <div class="mt-6 pt-3 border-t border-[var(--accent-emerald-border)] text-[11px] font-mono-code text-[var(--accent-emerald)]">
+            State: Live &amp; Enterprise-Governed
+          </div>
+        </div>
+
+      </div>
+
+      <!-- The Future Convergence -->
+      <div class="p-6 rounded-2xl glass-surface border-[var(--border-subtle)]">
+        <h4 class="font-mono-code text-xs text-[var(--accent-warm)] font-bold uppercase tracking-wider mb-2">
+          The Horizon: Unified Continual Memory
+        </h4>
+        <p class="text-sm text-[var(--text-secondary)] leading-relaxed">
+          In future agent architectures, these three distinct stores blend together: systems store durable user memories outside the model, periodically distill verified insights into parameter adapters (LoRA), and check real-time external sources so intelligence never goes stale.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ======================================================== -->
+  <!-- SECTION 07: ENTERPRISE GUARDRAILS & SANDBOX TESTER -->
+  <!-- ======================================================== -->
+  <section id="guardrails" class="py-20 px-4 lg:px-8 border-b border-[var(--border-subtle)] max-w-7xl mx-auto">
+    <div class="space-y-12">
+      
+      <div>
+        <div class="flex items-center space-x-2 text-[var(--accent-warm)] text-xs font-mono-code mb-2">
+          <span>SECTION 07 // GOVERNANCE & SAFETY</span>
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-display font-extrabold text-[var(--text-primary)] tracking-tight">
+          Enterprise Guardrails & Control
+        </h2>
+        <p class="text-[var(--text-secondary)] text-sm sm:text-base mt-2 max-w-2xl">
+          Agentic does not mean unlimited autonomy: permissions, budgets, audit trails, and human sign-off gates are mandatory.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        
+        <div class="glass-surface p-5 rounded-xl space-y-2">
+          <span class="text-xs font-mono-code text-[var(--accent-warm)] font-bold">01 // RBAC</span>
+          <h4 class="font-bold text-sm text-[var(--text-primary)]">Strict Permissions</h4>
+          <p class="text-xs text-[var(--text-secondary)]">Fine-grained role-based access. Agents can only call endpoints approved for that user's identity.</p>
+        </div>
+
+        <div class="glass-surface p-5 rounded-xl space-y-2">
+          <span class="text-xs font-mono-code text-[var(--accent-cyan)] font-bold">02 // BUDGETS</span>
+          <h4 class="font-bold text-sm text-[var(--text-primary)]">Token &amp; Cost Caps</h4>
+          <p class="text-xs text-[var(--text-secondary)]">Hard recursion limits prevent runaway retry loops and unexpected API billing spikes.</p>
+        </div>
+
+        <div class="glass-surface p-5 rounded-xl space-y-2">
+          <span class="text-xs font-mono-code text-[var(--accent-emerald)] font-bold">03 // GATES</span>
+          <h4 class="font-bold text-sm text-[var(--text-primary)]">Human-in-the-Loop</h4>
+          <p class="text-xs text-[var(--text-secondary)]">High-impact actions (deleting data, moving money, emailing clients) require explicit manual confirmation.</p>
+        </div>
+
+        <div class="glass-surface p-5 rounded-xl space-y-2">
+          <span class="text-xs font-mono-code text-[var(--accent-rose)] font-bold">04 // AUDIT</span>
+          <h4 class="font-bold text-sm text-[var(--text-primary)]">Immutable Telemetry</h4>
+          <p class="text-xs text-[var(--text-secondary)]">Every step, thought trace, tool payload, and return code is permanently preserved for security review.</p>
+        </div>
+
+      </div>
+
+      <!-- Interactive Policy Interceptor Simulator -->
+      <div class="glass-surface rounded-2xl p-6 sm:p-8 border-[var(--border-subtle)] space-y-4">
+        <div class="flex items-center justify-between pb-3 border-b border-[var(--border-subtle)]">
+          <h4 class="font-display font-bold text-sm sm:text-base text-[var(--text-primary)]">Interactive Security Policy Interceptor</h4>
+          <span class="text-xs font-mono-code text-[var(--accent-warm)]">SANDBOX ENFORCEMENT</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+          <button onclick="testPolicy('salary')" class="p-3.5 text-left rounded-xl bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] hover:border-rose-500/50 transition-colors">
+            <span class="text-xs font-bold text-[var(--text-primary)] block">Query Executive Salaries</span>
+            <span class="text-[11px] text-[var(--text-secondary)]">Tries unauthorized SQL query on HR payroll table.</span>
+          </button>
+          <button onclick="testPolicy('email')" class="p-3.5 text-left rounded-xl bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] hover:border-amber-500/50 transition-colors">
+            <span class="text-xs font-bold text-[var(--text-primary)] block">Send 10k Blast Email</span>
+            <span class="text-[11px] text-[var(--text-secondary)]">Triggers high-impact external marketing campaign.</span>
+          </button>
+          <button onclick="testPolicy('safe')" class="p-3.5 text-left rounded-xl bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] hover:border-emerald-500/50 transition-colors">
+            <span class="text-xs font-bold text-[var(--text-primary)] block">Read Product Handbook</span>
+            <span class="text-[11px] text-[var(--text-secondary)]">Queries standard public employee documentation.</span>
+          </button>
+        </div>
+
+        <div id="policyInterceptResult" class="p-4 rounded-xl bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] font-mono-code text-xs text-[var(--text-muted)] min-h-[56px] flex items-center">
+          // Click any security test scenario above to inspect the live interception engine...
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ======================================================== -->
+  <!-- EXECUTIVE SYNTHESIS FOOTER -->
+  <!-- ======================================================== -->
+  <footer class="py-16 px-4 lg:px-8 max-w-7xl mx-auto space-y-8">
+    <div class="p-8 sm:p-12 rounded-3xl glass-surface border-[var(--accent-warm-border)] text-center space-y-4">
+      <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[var(--accent-warm-soft)] text-[var(--accent-warm)] text-xs font-mono-code">
+        <span>THE GOVERNING PRINCIPLE</span>
+      </div>
+
+      <h3 class="text-2xl sm:text-4xl font-display font-extrabold text-[var(--text-primary)] max-w-3xl mx-auto leading-tight">
+        "The goal is not maximum unchecked autonomy. <br class="hidden sm:block"/>
+        It is <span class="text-[var(--accent-warm)]">useful autonomy</span> with <span class="text-[var(--accent-emerald)]">reliability, security, and human accountability</span>."
+      </h3>
+
+      <div class="pt-4 flex flex-wrap justify-center gap-4">
+        <a href="#taxonomy" class="px-5 py-2.5 rounded-lg bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] text-xs font-mono-code text-[var(--text-primary)] hover:border-[var(--accent-warm-border)] transition-colors">
+          &uarr; Back to Top
+        </a>
+        <button onclick="window.print()" class="px-5 py-2.5 rounded-lg bg-[var(--accent-warm)] text-slate-950 font-bold font-mono-code text-xs hover:opacity-90 transition-opacity">
+          Print / Export Executive Dossier
+        </button>
+      </div>
+    </div>
+
+    
+  </footer>
+
+  <!-- ======================================================== -->
+  <!-- SLIDE DECK MODAL LAUNCHER (FOR PRESENTATIONS) -->
+  <!-- ======================================================== -->
+  <div id="deckModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden items-center justify-center p-4">
+    <div class="glass-surface border border-[var(--border-strong)] rounded-2xl max-w-4xl w-full p-6 sm:p-8 flex flex-col max-h-[90vh]">
+      <div class="flex items-center justify-between pb-4 border-b border-[var(--border-subtle)]">
+        <div>
+          <h3 class="font-display font-bold text-lg text-[var(--text-primary)]">Slide Presentation Mode</h3>
+          <p class="text-xs font-mono-code text-[var(--text-secondary)]">Navigate with Arrow Keys or Spacebar</p>
+        </div>
+        <button onclick="toggleDeckModal()" class="p-2 rounded-lg text-[var(--text-muted)] hover:text-[var(--text-primary)]">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+      </div>
+      
+      <div class="py-6 overflow-y-auto space-y-4" id="deckSlideContainer">
+        <div class="p-6 rounded-xl bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] space-y-3">
+          <span class="text-xs font-mono-code text-[var(--accent-warm)]" id="deckSlideNum">SLIDE 01 / 06</span>
+          <h4 class="text-2xl font-display font-bold text-[var(--text-primary)]" id="deckSlideTitle">Executive Thesis</h4>
+          <p class="text-sm text-[var(--text-secondary)] leading-relaxed" id="deckSlideBody">
+            The evolution from Large Language Models to goal-directed AI Agents and Multi-Agent Swarms marks a profound architectural transition from probabilistic text generation to multi-step coordinated planning under enterprise guardrails.
+          </p>
+        </div>
+      </div>
+
+      <div class="pt-4 border-t border-[var(--border-subtle)] flex items-center justify-between">
+        <button onclick="prevDeckSlide()" class="px-4 py-2 rounded-lg bg-[var(--bg-surface-elevated)] font-mono-code text-xs text-[var(--text-primary)]">
+          &larr; Previous
+        </button>
+        <span class="text-xs font-mono-code text-[var(--text-muted)]" id="deckSlideIndicator">1 of 6</span>
+        <button onclick="nextDeckSlide()" class="px-4 py-2 rounded-lg bg-[var(--accent-warm)] text-slate-950 font-bold font-mono-code text-xs">
+          Next &rarr;
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- JAVASCRIPT: THEME TOGGLE, AUDIO FX, ICEBERG & CANVAS -->
+  <!-- ======================================================== -->
+  <script>
+    // --------------------------------------------------------
+    // 1. THEME SWITCHER (Dark <-> Light Ivory Luxe)
+    // --------------------------------------------------------
+    let currentTheme = 'dark';
+
+    function toggleTheme() {
+      const html = document.documentElement;
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        currentTheme = 'light';
+        document.getElementById('themeIconSun').classList.remove('hidden');
+        document.getElementById('themeIconMoon').classList.add('hidden');
+      } else {
+        html.classList.add('dark');
+        currentTheme = 'dark';
+        document.getElementById('themeIconSun').classList.add('hidden');
+        document.getElementById('themeIconMoon').classList.remove('hidden');
+      }
+      playTone(580, 'sine', 0.05);
+      redrawCanvas();
+    }
+
+    // --------------------------------------------------------
+    // 2. AUDIO SYNTHESIZER (Tactile Clicks without files)
+    // --------------------------------------------------------
+    let audioCtx = null;
+    let soundEnabled = false;
+
+    function playTone(freq, type = 'sine', duration = 0.06) {
+      if (!soundEnabled) return;
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.03, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {}
+    }
+
+    function toggleSoundFx() {
+      soundEnabled = !soundEnabled;
+      document.getElementById('soundIconOn').classList.toggle('hidden', !soundEnabled);
+      document.getElementById('soundIconOff').classList.toggle('hidden', soundEnabled);
+      if (soundEnabled) playTone(880, 'triangle', 0.1);
+    }
+
+    // --------------------------------------------------------
+    // 3. THE 5-LAYER ICEBERG DATA & HOVER ENGINE
+    // --------------------------------------------------------
+    const icebergData = {
+      1: {
+        num: "LAYER 01",
+        status: "DEPLOYED TODAY &bull; IN WIDE USE",
+        depth: "Depth: +50m to +150m (Peak Tip Above Water)",
+        title: "Large Language Models (LLMs)",
+        subtitle: "Statistical Next-Token Pattern Generation",
+        desc: "Massive neural networks trained on internet-scale text and code. They excel at summarization, translation, code assistance, and question answering, but operate on frozen weights after training.",
+        core: "Transformer attention layers, token dictionaries, parameter weights fixed at cutoff.",
+        reality: "Widely deployed across millions of consumer and enterprise products today."
+      },
+      2: {
+        num: "LAYER 02",
+        status: "WORKING",
+        depth: "Depth: 0m to +50m (Directly Above the Waterline)",
+        title: "Agentic AI (Single Workflows)",
+        subtitle: "Plan &bull; Act &bull; Observe &bull; Adapt",
+        desc: "Systems that combine an LLM with external APIs, memory, and an evaluation loop. Capable of taking a user's objective, formulating an action plan, calling tools, and adapting to errors.",
+        core: "Reasoning cycle, function-calling schemas, API tool registry, sandbox execution.",
+        reality: "Standard in software development agents, research bots, and automated support."
+      },
+      3: {
+        num: "LAYER 03",
+        status: "EMERGING &bull; ACTIVE PRODUCTION EXPERIMENTS",
+        depth: "Depth: -50m to -500m (Immediate Subsurface)",
+        title: "Multi-Agent Systems & Swarms",
+        subtitle: "Collaborative Swarms of Specialized Agents",
+        desc: "Teams of isolated agents with distinct roles (Researcher, Analyst, Builder, Reviewer) coordinating through an orchestrator or shared message board to tackle complex objectives.",
+        core: "Shared state buses, inter-agent delegation protocols, consensus voting, subagent forks.",
+        reality: "Emerging rapidly in complex enterprise coding pipelines and quantitative research."
+      },
+      4: {
+        num: "LAYER 04",
+        status: "NOT ACHIEVED &bull; RESEARCH FRONTIER",
+        depth: "Depth: -500m to -2,500m (Deep Abyssal Water)",
+        title: "Artificial General Intelligence (AGI)",
+        subtitle: "Broad, Flexible Human-Level Generality",
+        desc: "Hypothetical artificial intelligence with flexible, broad cognitive competence across any intellectual task, capable of novel self-guided scientific discovery and cross-domain reasoning.",
+        core: "Grounded world models, zero-shot transfer learning, causal abstraction, metacognition.",
+        reality: "Active scientific goal of leading frontier AI labs; unachieved reality."
+      },
+      5: {
+        num: "LAYER 05",
+        status: "SPECULATIVE &bull; HYPOTHETICAL FORECAST",
+        depth: "Depth: -2,500m to -10,000m (The Oceanic Trench)",
+        title: "Superintelligence (SI)",
+        subtitle: "Cognition Vastly Exceeding All Human Minds",
+        desc: "Hypothetical intelligence that substantially surpasses human capability across every single domain, including scientific research, creative arts, social reasoning, and strategic synthesis.",
+        core: "Recursive self-improvement, post-human cognitive models, planetary scale.",
+        reality: "Theoretical philosophical and safety discussion horizon."
+      }
+    };
+
+    function hoverIceberg(layerNum) {
+      const data = icebergData[layerNum];
+      if (!data) return;
+
+      playTone(300 + layerNum * 70, 'sine', 0.04);
+
+      // Update HUD elements
+      document.getElementById('hudLayerNumber').textContent = data.num;
+      document.getElementById('hudLayerStatus').innerHTML = data.status;
+      document.getElementById('hudLayerDepth').textContent = data.depth;
+      document.getElementById('hudLayerTitle').textContent = data.title;
+      document.getElementById('hudLayerSubtitle').textContent = data.subtitle;
+      document.getElementById('hudLayerDesc').textContent = data.desc;
+      document.getElementById('hudLayerCore').textContent = data.core;
+      document.getElementById('hudLayerReality').textContent = data.reality;
+
+      // Update active SVG classes
+      for (let i = 1; i <= 5; i++) {
+        const elem = document.getElementById(`svg-layer-${i}`);
+        if (elem) {
+          if (i === layerNum) {
+            elem.classList.add('active-layer');
+          } else {
+            elem.classList.remove('active-layer');
+          }
+        }
+      }
+    }
+
+    // --------------------------------------------------------
+    // 4. NEXT-TOKEN GENERATOR LAB
+    // --------------------------------------------------------
+    const tokenSeries = [
+      { token: "action.", logit: "94.2%", alts: [["action.", "94.2%"], ["execution.", "3.8%"], ["workflows.", "1.2%"]] },
+      { token: "An", logit: "98.1%", alts: [["An", "98.1%"], ["The", "1.1%"], ["Each", "0.4%"]] },
+      { token: "AI", logit: "99.5%", alts: [["AI", "99.5%"], ["agentic", "0.3%"], ["autonomous", "0.1%"]] },
+      { token: "Agent", logit: "96.4%", alts: [["Agent", "96.4%"], ["system", "2.5%"], ["pipeline", "0.8%"]] },
+      { token: "uses", logit: "91.0%", alts: [["uses", "91.0%"], ["leverages", "6.2%"], ["deploys", "1.9%"]] },
+      { token: "external", logit: "88.3%", alts: [["external", "88.3%"], ["connected", "7.1%"], ["live", "3.6%"]] },
+      { token: "APIs", logit: "84.5%", alts: [["APIs", "84.5%"], ["tools", "11.2%"], ["services", "3.1%"]] },
+      { token: "to", logit: "97.8%", alts: [["to", "97.8%"], ["for", "1.2%"], ["which", "0.6%"]] },
+      { token: "affect", logit: "79.1%", alts: [["affect", "79.1%"], ["alter", "14.0%"], ["interact", "5.8%"]] },
+      { token: "real-world", logit: "92.0%", alts: [["real-world", "92.0%"], ["system", "5.1%"], ["user", "2.1%"]] },
+      { token: "state.", logit: "95.5%", alts: [["state.", "95.5%"], ["environments.", "3.2%"], ["data.", "1.0%"]] }
+    ];
+
+    let tokenIndex = 0;
+    const basePromptHtml = `<span class="text-[var(--accent-warm)] font-bold">[PROMPT]:</span> The fundamental shift in modern artificial intelligence is from isolated text generation to goal-directed `;
+
+    function stepInteractiveToken() {
+      if (tokenIndex >= tokenSeries.length) {
+        tokenIndex = 0;
+        document.getElementById('tokenContextDisplay').innerHTML = basePromptHtml;
+      }
+
+      const item = tokenSeries[tokenIndex];
+      const box = document.getElementById('tokenContextDisplay');
+      
+      const chip = document.createElement('span');
+      chip.className = 'px-1 py-0.5 rounded bg-[var(--accent-warm-soft)] text-[var(--accent-warm)] font-bold border border-[var(--accent-warm-border)] mr-1 inline-block animate-pulse';
+      chip.textContent = item.token;
+      box.appendChild(chip);
+
+      const logitsDiv = document.getElementById('tokenLogitsContainer');
+      logitsDiv.innerHTML = '';
+      item.alts.forEach((alt, idx) => {
+        const row = document.createElement('div');
+        row.className = `p-2 rounded-lg text-xs font-mono-code flex items-center justify-between ${idx === 0 ? 'bg-[var(--accent-warm-soft)] border border-[var(--accent-warm-border)] text-[var(--accent-warm)] font-bold' : 'bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] text-[var(--text-muted)]'}`;
+        row.innerHTML = `
+          <span>${alt[0]} ${idx === 0 ? '&starf; (Sampled)' : ''}</span>
+          <span>${alt[1]}</span>
+        `;
+        logitsDiv.appendChild(row);
+      });
+
+      document.getElementById('tokenCounterNum').textContent = 24 + tokenIndex + 1;
+      playTone(400 + tokenIndex * 35, 'triangle', 0.04);
+      tokenIndex++;
+    }
+
+    function resetInteractiveToken() {
+      tokenIndex = 0;
+      document.getElementById('tokenContextDisplay').innerHTML = basePromptHtml;
+      document.getElementById('tokenLogitsContainer').innerHTML = '<div class="text-[var(--text-muted)] text-xs font-mono-code">// Click "Sample Next Token" to view candidate logits...</div>';
+      document.getElementById('tokenCounterNum').textContent = '24';
+    }
+
+    // --------------------------------------------------------
+    // 5. LIVE CANVAS MULTI-AGENT SWARM SIMULATOR
+    // --------------------------------------------------------
+    const canvas = document.getElementById('swarmCanvas');
+    const ctx = canvas.getContext('2d');
+    let swarmActive = false;
+    let swarmPackets = [];
+    let completedCount = 0;
+
+    const swarmNodes = [
+      { id: 'orch', label: 'ORCHESTRATOR', x: 0.5, y: 0.22, color: '#f59e0b', radius: 18 },
+      { id: 'res', label: 'RESEARCH', x: 0.16, y: 0.72, color: '#f59e0b', radius: 15 },
+      { id: 'ana', label: 'ANALYST', x: 0.38, y: 0.78, color: '#06b6d4', radius: 15 },
+      { id: 'bld', label: 'BUILDER', x: 0.62, y: 0.78, color: '#10b981', radius: 15 },
+      { id: 'rev', label: 'REVIEWER', x: 0.84, y: 0.72, color: '#f43f5e', radius: 15 }
+    ];
+
+    function resizeSwarmCanvas() {
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width;
+      canvas.height = rect.height;
+    }
+    window.addEventListener('resize', resizeSwarmCanvas);
+    setTimeout(resizeSwarmCanvas, 100);
+
+    function drawSwarmFrame() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const w = canvas.width;
+      const h = canvas.height;
+      const orch = swarmNodes[0];
+
+      // Draw dashed connector lines
+      for (let i = 1; i < swarmNodes.length; i++) {
+        const target = swarmNodes[i];
+        ctx.beginPath();
+        ctx.strokeStyle = currentTheme === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.08)';
+        ctx.lineWidth = 1.5;
+        ctx.setLineDash([4, 4]);
+        ctx.moveTo(orch.x * w, orch.y * h);
+        ctx.lineTo(target.x * w, target.y * h);
+        ctx.stroke();
+        ctx.setLineDash([]);
+      }
+
+      // Draw and advance packets
+      for (let i = swarmPackets.length - 1; i >= 0; i--) {
+        const p = swarmPackets[i];
+        p.pct += p.speed;
+
+        const curX = p.startX + (p.endX - p.startX) * p.pct;
+        const curY = p.startY + (p.endY - p.startY) * p.pct;
+
+        ctx.beginPath();
+        ctx.arc(curX, curY, 4, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.shadowColor = p.color;
+        ctx.shadowBlur = 6;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+
+        if (p.pct >= 1) {
+          swarmPackets.splice(i, 1);
+          completedCount++;
+          document.getElementById('swarmUnitCount').textContent = completedCount;
+          playTone(660, 'sine', 0.02);
+        }
+      }
+
+      // Draw node spheres and labels
+      swarmNodes.forEach(node => {
+        const nx = node.x * w;
+        const ny = node.y * h;
+
+        // Ambient border
+        ctx.beginPath();
+        ctx.arc(nx, ny, node.radius + 3, 0, Math.PI * 2);
+        ctx.fillStyle = currentTheme === 'dark' ? 'rgba(255, 255, 255, 0.04)' : 'rgba(0, 0, 0, 0.04)';
+        ctx.fill();
+
+        // Core circle
+        ctx.beginPath();
+        ctx.arc(nx, ny, node.radius, 0, Math.PI * 2);
+        ctx.fillStyle = currentTheme === 'dark' ? '#10141f' : '#ffffff';
+        ctx.strokeStyle = node.color;
+        ctx.lineWidth = 2;
+        ctx.fill();
+        ctx.stroke();
+
+        // Label
+        ctx.font = '10px "JetBrains Mono", monospace';
+        ctx.fillStyle = currentTheme === 'dark' ? '#f8fafc' : '#191c21';
+        ctx.textAlign = 'center';
+        ctx.fillText(node.label, nx, ny + node.radius + 14);
+      });
+
+      document.getElementById('swarmPacketCount').textContent = swarmPackets.length;
+
+      if (swarmActive) {
+        requestAnimationFrame(drawSwarmFrame);
+      }
+    }
+
+    function redrawCanvas() {
+      resizeSwarmCanvas();
+      drawSwarmFrame();
+    }
+
+    function triggerSwarmSim() {
+      resizeSwarmCanvas();
+      swarmActive = true;
+      document.getElementById('swarmEngineBadge').textContent = 'STATUS: SWARM EXECUTING';
+      document.getElementById('swarmEngineBadge').className = 'px-2 py-0.5 rounded bg-[var(--accent-emerald-soft)] text-[var(--accent-emerald)] border border-[var(--accent-emerald-border)] font-bold animate-pulse';
+
+      const w = canvas.width;
+      const h = canvas.height;
+      const orch = swarmNodes[0];
+
+      // Dispatch packets sequentially
+      for (let i = 1; i < swarmNodes.length; i++) {
+        setTimeout(() => {
+          const worker = swarmNodes[i];
+          // Downward packet: Goal allocation
+          swarmPackets.push({
+            startX: orch.x * w,
+            startY: orch.y * h,
+            endX: worker.x * w,
+            endY: worker.y * h,
+            pct: 0,
+            speed: 0.025,
+            color: worker.color
+          });
+
+          // Upward packet: Verified response
+          setTimeout(() => {
+            swarmPackets.push({
+              startX: worker.x * w,
+              startY: worker.y * h,
+              endX: orch.x * w,
+              endY: orch.y * h,
+              pct: 0,
+              speed: 0.02,
+              color: currentTheme === 'dark' ? '#ffffff' : '#047857'
+            });
+          }, 800);
+        }, i * 350);
+      }
+
+      playTone(480, 'sine', 0.1);
+      drawSwarmFrame();
+
+      setTimeout(() => {
+        document.getElementById('swarmEngineBadge').textContent = 'STATUS: COMPLETE';
+        document.getElementById('swarmEngineBadge').className = 'px-2 py-0.5 rounded bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] text-[var(--text-secondary)]';
+      }, 3500);
+    }
+
+    // --------------------------------------------------------
+    // 6. POLICY INTERCEPTOR TESTER
+    // --------------------------------------------------------
+    function testPolicy(type) {
+      const res = document.getElementById('policyInterceptResult');
+      if (type === 'salary') {
+        playTone(220, 'sawtooth', 0.12);
+        res.innerHTML = `<span class="text-rose-500 font-bold">[INTERCEPTED // RBAC_VIOLATION]:</span> Agent attempted SQL SELECT on 'exec_payroll'. Blocked by security sandbox. Security event logged.`;
+        res.className = 'p-4 rounded-xl bg-rose-500/10 border border-rose-500/30 font-mono-code text-xs text-rose-600 dark:text-rose-300';
+      } else if (type === 'email') {
+        playTone(380, 'square', 0.1);
+        res.innerHTML = `<span class="text-amber-500 font-bold">[HUMAN_GATE_TRIGGERED]:</span> Outbound broadcast email requires explicit Level 2 human authorization. Approval dispatch token created.`;
+        res.className = 'p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 font-mono-code text-xs text-amber-700 dark:text-amber-300';
+      } else {
+        playTone(660, 'sine', 0.08);
+        res.innerHTML = `<span class="text-emerald-500 font-bold">[POLICY_PASS]:</span> Retrieval query on public employee handbook conforms to approved sandbox permissions. Response served.`;
+        res.className = 'p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 font-mono-code text-xs text-emerald-700 dark:text-emerald-300';
+      }
+    }
+
+    // --------------------------------------------------------
+    // 6B. VIDEO PLAYER CONTROLS (explanation short.mp4)
+    // --------------------------------------------------------
+    function seekVideo(seconds) {
+      const v = document.getElementById('briefingVideo');
+      if (v) {
+        v.currentTime = seconds;
+        v.play().catch(() => {});
+        playTone(520, 'sine', 0.05);
+      }
+    }
+
+    function setVideoSpeed(speed) {
+      const v = document.getElementById('briefingVideo');
+      if (v) {
+        v.playbackRate = speed;
+        ['10', '125', '15', '20'].forEach(id => {
+          const btn = document.getElementById('speedBtn' + id);
+          if (btn) {
+            btn.className = "px-2 py-0.5 rounded text-[var(--text-secondary)] hover:text-[var(--text-primary)]";
+          }
+        });
+        const activeKey = String(speed).replace('.', '');
+        const activeBtn = document.getElementById('speedBtn' + activeKey);
+        if (activeBtn) {
+          activeBtn.className = "px-2 py-0.5 rounded font-bold bg-[var(--accent-warm-soft)] text-[var(--accent-warm)]";
+        }
+        playTone(600, 'sine', 0.04);
+      }
+    }
+
+    function toggleVideoFullscreen() {
+      const v = document.getElementById('briefingVideo');
+      if (v) {
+        if (v.requestFullscreen) v.requestFullscreen();
+        else if (v.webkitRequestFullscreen) v.webkitRequestFullscreen();
+      }
+    }
+
+    // --------------------------------------------------------
+    // 7. DECK PRESENTATION MODAL
+    // --------------------------------------------------------
+    const deckSlides = [
+      {
+        num: "SLIDE 01 / 06",
+        title: "Executive Thesis & Foundations",
+        body: "The shift from prediction to coordinated action represents the core frontier in artificial intelligence. Systems are progressing from isolated text generators to goal-directed agents that observe context, invoke external APIs, and execute complex workflows."
+      },
+      {
+        num: "SLIDE 02 / 06",
+        title: "The Three Distinct Levels",
+        body: "Artificial Intelligence is the broad umbrella of cognitive machine tasks. An AI Agent utilizes an LLM for reasoning plus tools and memory. Agentic AI designs, manages, and adapts multi-step pipelines across teams of agents."
+      },
+      {
+        num: "SLIDE 03 / 06",
+        title: "The 5-Layer Iceberg Model",
+        body: "Above the waterline sits what is deployed today: LLMs (Layer 1) and single Agentic Workflows (Layer 2). Below the waterline lies the frontier: Multi-Agent Swarms (Layer 3), human-level AGI (Layer 4), and speculative Superintelligence (Layer 5)."
+      },
+      {
+        num: "SLIDE 04 / 06",
+        title: "Swarm Orchestration & Collective Teams",
+        body: "When one agent becomes a team, an orchestrator coordinates specialized agents: Research, Analyst, Builder, and Reviewer. Trade-offs include non-linear token overhead, potential error propagation, and coordination latencies."
+      },
+      {
+        num: "SLIDE 05 / 06",
+        title: "Epistemology: The Three Knowledge Stores",
+        body: "Models store knowledge in the weights (fixed at training cutoff), in the active context (short-term session memory), and outside the model (RAG, live databases, and tools). Next-generation architectures blend all three."
+      },
+      {
+        num: "SLIDE 06 / 06",
+        title: "Enterprise Guardrails & Human Governance",
+        body: "The goal is not maximum unchecked autonomy. It is useful autonomy with reliability, security, and human accountability through fine-grained RBAC permissions, token budgets, and human-in-the-loop approval gates."
+      }
+    ];
+
+    let deckIdx = 0;
+
+    function toggleDeckModal() {
+      const modal = document.getElementById('deckModal');
+      modal.classList.toggle('hidden');
+      modal.classList.toggle('flex');
+      if (!modal.classList.contains('hidden')) {
+        updateDeckUI();
+      }
+    }
+
+    function updateDeckUI() {
+      const s = deckSlides[deckIdx];
+      document.getElementById('deckSlideNum').textContent = s.num;
+      document.getElementById('deckSlideTitle').textContent = s.title;
+      document.getElementById('deckSlideBody').textContent = s.body;
+      document.getElementById('deckSlideIndicator').textContent = `${deckIdx + 1} of ${deckSlides.length}`;
+      playTone(500, 'sine', 0.04);
+    }
+
+    function nextDeckSlide() {
+      if (deckIdx < deckSlides.length - 1) {
+        deckIdx++;
+        updateDeckUI();
+      }
+    }
+
+    function prevDeckSlide() {
+      if (deckIdx > 0) {
+        deckIdx--;
+        updateDeckUI();
+      }
+    }
+
+    // Keyboard navigation
+    window.addEventListener('keydown', (e) => {
+      const modal = document.getElementById('deckModal');
+      if (!modal.classList.contains('hidden')) {
+        if (e.key === 'ArrowRight' || e.key === ' ') {
+          e.preventDefault();
+          nextDeckSlide();
+        } else if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          prevDeckSlide();
+        } else if (e.key === 'Escape') {
+          toggleDeckModal();
+        }
+      }
+    });
+
+    // Initialize on load
+    window.addEventListener('DOMContentLoaded', () => {
+      resetInteractiveToken();
+      hoverIceberg(2);
+      setTimeout(triggerSwarmSim, 600);
+    });
+  </script>
+</body>
+</html>
